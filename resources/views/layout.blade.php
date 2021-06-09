@@ -184,7 +184,7 @@
 		<div class="header-inner">
 			<div class="container">
 				<div class="cat-nav-head">
-					<div class="row">
+					{{-- <div class="row">
 						<div class="col-lg-3">
 							<div class="all-category">
 								<h3 class="cat-heading"><i class="fa fa-bars" aria-hidden="true"></i>CATEGORIES</h3>
@@ -284,7 +284,7 @@
 								<!--/ End Main Menu -->	
 							</div>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</div>

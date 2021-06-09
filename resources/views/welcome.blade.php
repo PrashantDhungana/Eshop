@@ -1,5 +1,9 @@
 @extends('layout')
 @section('content')
+
+@if(session('success') !== NULL)
+	<div class="alert alert-success">{{session('success')}}</div>
+@endif
 	<!-- Slider Area -->
 	<section class="hero-slider">
 		<!-- Single Slider -->

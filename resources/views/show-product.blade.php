@@ -29,7 +29,7 @@
         <div class="row" style="justify-content: center; font-family: Muli; font-size: 20px;"><div>Descriptions <br></div>
         </div>
         <div style="font-family: muli; font-size: 15px; font-weight: lighter; padding-top: 20px;">{{$product->details}}<br>
-Made in Nepal</div>
+        </div>
     </div>
   </div>
   </div>

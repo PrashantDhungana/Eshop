@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Admin\AdminProductController as Admin;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,5 +22,14 @@ use App\Http\Controllers\ProductController;
 // Route::get('/product/create',[ProductController::class,'create']);
 // Route::get('/product/{slug}',[ProductController::class,'show']);
 // Route::post('/product/create',[ProductController::class,'store'])->name('store.product');
-Route::resource('product', ProductController::class);
+Route::resource('product', ProductController::class)->except([
+    'create', 'store', 'update', 'destroy'
+]);;
+
+// For Admin 
+
+Route::resource('admin/products',App\Http\Controllers\Admin\ProductController::class)->except(
+    'show');
+
+Route::get('/dashboard',[App\Http\Controllers\Admin\ProductController::class,'dashboard']);
 

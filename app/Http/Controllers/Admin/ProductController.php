@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -14,9 +17,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('admin.index',compact('products'));
     }
 
+    public function dashboard(){
+        return view('admin.dashboard');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +31,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.create', compact('categories'));
     }
 
     /**
@@ -35,7 +43,38 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $request->validate([
+            'product_name' => 'required',
+            'description' => 'required|max:255',
+            'price' => 'required|integer',
+            'cat_name' => 'required|integer|min:1',
+            'product_img' => 'image',
+        ]);   
+        
+        if($request->hasFile('product_img')){
+
+            $imageFile = $request->file('product_img');
+            $imgExt = $imageFile->getClientOriginalExtension();
+            
+            $fullname = uniqid().time().".".$imgExt;
+            
+            $imageFile->storeAs('public/images', $fullname);
+                
+        }else{
+            $fullname = 'default.png';
+        }
+        
+        $product = new Product;
+        $product->name = $request->product_name; 
+        $product->details  = $request->description;
+        $product->new_price = $request->price;
+        $product->slug = Str::slug($request->product_name, '-');
+        $product->category_id = $request->cat_name;
+        $product->image = $fullname;
+
+        if($product->save()) return redirect()->route('products.index')->with('success','Product inserted successfully');
+        
+
     }
 
     /**
@@ -44,10 +83,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    // public function show($slug)
+    // {
+    //     $product = Product::where('slug', $slug)->firstorFail();
+    //     // return $product;
+    //     return view('show-product',compact('product'));
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -55,9 +96,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $categories = Category::all();
+        $product = Product::where('slug', $slug)->firstorFail();
+        return view('admin.edit',compact('product','categories'));
     }
 
     /**
@@ -67,9 +110,24 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        //
+        $request->validate([
+            'product_name' => 'required',
+            'description' => 'required|max:255',
+            'new_price' => 'required|numeric',
+            'cat_name' => 'required|numeric',
+            // 'product_img' => 'image',
+        ]); 
+        $product = Product::where('slug',$slug)->firstorFail();
+        $product->name = $request->product_name; 
+        $product->details  = $request->description;
+        $product->old_price = $request->old_price;
+        $product->new_price = $request->new_price;
+        $product->slug = Str::slug($request->product_name, '-');
+        $product->category_id = $request->cat_name;
+
+        if($product->save()) return redirect()->route('products.index')->with('success','Product edited successfully');
     }
 
     /**
@@ -78,8 +136,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-        //
+        $result = Product::where('slug',$slug)->delete();
+        if($result) return redirect()->route('products.index')->with('success','Product deleted successfully');
     }
 }
