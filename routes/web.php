@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\Admin\AdminProductController as Admin;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,22 +16,34 @@ use App\Http\Controllers\Admin\AdminProductController as Admin;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
  
 // Route::get('/',[ProductController::class,'index']);
 // Route::get('/product/create',[ProductController::class,'create']);
 // Route::get('/product/{slug}',[ProductController::class,'show']);
 // Route::post('/product/create',[ProductController::class,'store'])->name('store.product');
+
+// Normal Product view for Users
 Route::resource('product', ProductController::class)->except([
     'create', 'store', 'update', 'destroy'
 ]);;
 
-// For Admin 
 
-Route::resource('admin/products',App\Http\Controllers\Admin\ProductController::class)->except(
+
+//Login 
+Route::get('/login',[LoginController::class,'login']);
+Route::post('/login',[LoginController::class,'authenticate'])->name('login');
+
+//Register
+Route::get('/register',[RegisterController::class,'create']);
+Route::post('/register',[RegisterController::class,'store'])->name('register');
+
+Route::middleware(['auth'])->group(function () {
+    // For Admin 
+    Route::resource('admin/products',App\Http\Controllers\Admin\ProductController::class)->except(
     'show');
 
-Route::get('/dashboard',[App\Http\Controllers\Admin\ProductController::class,'dashboard']);
-
+    Route::get('/dashboard',[App\Http\Controllers\Admin\ProductController::class,'dashboard']);
+});

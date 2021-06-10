@@ -101,7 +101,7 @@
               <div class="az-img-user">
                 <img src="/img/faces/face1.jpg" alt="">
               </div><!-- az-img-user -->
-              <h6>Aziana Pechon</h6>
+              <h6>{{ Auth::user()->name}}</h6>
               <span>Premium Member</span>
             </div><!-- az-header-profile -->
 

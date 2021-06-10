@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
-
+use Intervention\Image\Facades\Image;
 class ProductController extends Controller
 {
     /**
@@ -53,16 +53,19 @@ class ProductController extends Controller
         
         if($request->hasFile('product_img')){
 
-            $imageFile = $request->file('product_img');
-            $imgExt = $imageFile->getClientOriginalExtension();
+            $img = Image::make($request->file('product_img'))->resize(550, 750 );
+
+            $imgExt = $request->file('product_img')->getClientOriginalExtension();
             
             $fullname = uniqid().time().".".$imgExt;
             
-            $imageFile->storeAs('public/images', $fullname);
+            $img->save(storage_path('app/public/images/').$fullname);
                 
         }else{
             $fullname = 'default.png';
         }
+
+        merofunc("Hehe");
         
         $product = new Product;
         $product->name = $request->product_name; 
