@@ -34,8 +34,9 @@
         </div>  
       </div>
       <div class="avgrating">
-        <span style="font-size: 35px; font-weight:bold;">{{ $avgStar }}</span>/5
+        <span style="font-size: 35px; font-weight:bold;">{{ round($avgStar,2) }}</span>/5
       </div>
+      <hr>
         <div class="feedbacks">
           <span>Product Reviews</span>
             @foreach ($ratings as $rating)
