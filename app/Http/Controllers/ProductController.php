@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Rating;
+
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -24,7 +26,8 @@ class ProductController extends Controller
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->firstorFail();
+        $ratings = Rating::where('product_id', $product->id)->get();
         // return $product;
-        return view('show-product',compact('product'));
+        return view('show-product',compact('product','ratings'));
     }
 }

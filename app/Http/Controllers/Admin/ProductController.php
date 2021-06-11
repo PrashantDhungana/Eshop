@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+
 class ProductController extends Controller
 {
     /**
@@ -31,7 +32,16 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        // $sub_categories_with_parent = Category::with('parent')->whereNotNull('parent_id')->get();
+        // dd($sub_categories_with_parent);
+        $categories =Category::all();
+        // foreach($categories as $category){
+        //     // $cat_id = $category->id;
+        //     foreach($category->children as $cat_id)
+        //     {
+        //         dd(Category::find($cat_id->id)->children);
+        //     }
+        // }
         return view('admin.create', compact('categories'));
     }
 
@@ -64,8 +74,6 @@ class ProductController extends Controller
         }else{
             $fullname = 'default.png';
         }
-
-        merofunc("Hehe");
         
         $product = new Product;
         $product->name = $request->product_name; 

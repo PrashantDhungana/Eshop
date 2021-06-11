@@ -37,6 +37,10 @@
 	<!-- Slicknav -->
     <link rel="stylesheet" href="/css/slicknav.min.css">
 	
+	{{-- Font Awesome --}}
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+
 	<!-- Eshop StyleSheet -->
 	<link rel="stylesheet" href="/css/reset.css">
 	<link rel="stylesheet" href="/style.css">

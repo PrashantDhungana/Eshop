@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Http\Controllers\RatingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +30,8 @@ Route::resource('product', ProductController::class)->except([
     'create', 'store', 'update', 'destroy'
 ]);;
 
-
+// Rating Route
+Route::post('/rating/{slug}',[RatingController::class,'store']);
 
 //Login 
 Route::get('/login',[LoginController::class,'login']);
@@ -44,6 +45,9 @@ Route::middleware(['auth'])->group(function () {
     // For Admin 
     Route::resource('admin/products',App\Http\Controllers\Admin\ProductController::class)->except(
     'show');
+
+    Route::resource('admin/categories',App\Http\Controllers\Admin\CategoryController::class)->except(
+        'show');
 
     Route::get('/dashboard',[App\Http\Controllers\Admin\ProductController::class,'dashboard']);
 });

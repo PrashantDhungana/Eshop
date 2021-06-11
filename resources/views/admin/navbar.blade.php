@@ -18,6 +18,8 @@
             <nav class="az-menu-sub">
               <a href="/admin/products" class="nav-link">View Products</a>
               <a href="/admin/products/create" class="nav-link">Create</a>
+              <a href="/admin/categories" class="nav-link">View Categories</a>
+              <a href="/admin/categories/create" class="nav-link">Create Category</a>
 
             </nav>
           </li>
