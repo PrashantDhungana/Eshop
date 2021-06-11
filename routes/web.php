@@ -32,10 +32,13 @@ Route::resource('product', ProductController::class)->except([
 
 // Rating Route
 Route::post('/rating/{slug}',[RatingController::class,'store']);
+Route::post('/rating/{id}/edit',[RatingController::class,'update']);
+
 
 //Login 
 Route::get('/login',[LoginController::class,'login']);
 Route::post('/login',[LoginController::class,'authenticate'])->name('login');
+Route::get('/logout',[LoginController::class,'logout']);
 
 //Register
 Route::get('/register',[RegisterController::class,'create']);

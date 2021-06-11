@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rating;
+use App\Models\Product;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,16 +52,6 @@ class RatingController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Rating  $rating
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Rating $rating)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -68,9 +60,14 @@ class RatingController extends Controller
      * @param  \App\Models\Rating  $rating
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rating $rating)
+    public function update(Request $request,$id)
     {
-        //
+        $request->validate([
+            'comment' => 'required|max:255'
+        ]);
+        $rating = Rating::find($id);
+        $rating->comment = $request->comment;
+        if($rating->save()) return redirect()->route('product.show', $request->slug)->with('success','Rating edited successfully');
     }
 
     /**
