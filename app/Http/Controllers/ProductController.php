@@ -33,4 +33,37 @@ class ProductController extends Controller
         // return $product;
         return view('show-product',compact('product','ratings','avgStar','starSum'));
     }
+
+    public function search(Request $request){
+
+        $categories = Category::latest()->get();
+        $results = Product::categoryid($request->category)
+        ->search($request->search)
+        ->price($request->price)
+        ->get();
+        return view('search',compact('results','categories'));
+
+        // $products = Product::latest();
+        // $categories = Category::latest()->get();
+        // if(request('search') !== NULL)
+        // {
+        //     $products->where('name', 'like','%'.request('search').'%')
+        //             ->orWhere('details', 'like','%'.request('search').'%')
+        //             ->orWhere('new_price', 'like','%'.request('search').'%'); 
+        // }
+        // dump($products->get());
+
+        // // dd(request('category'));
+        // if(request('category') !== NULL)
+        // {
+        //     $products->where('category_id',request('category'));
+        // }
+        // dump($products->get());
+
+        // $results = $products->get();
+
+        
+        // // return $categories;
+        // return view('search',compact('results','categories'));`
+    }
 }

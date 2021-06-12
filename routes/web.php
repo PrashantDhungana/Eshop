@@ -25,6 +25,10 @@ Route::get('/', function () {
 // Route::get('/product/{slug}',[ProductController::class,'show']);
 // Route::post('/product/create',[ProductController::class,'store'])->name('store.product');
 
+//For Search
+Route::get('/search',[ProductController::class,'search']);
+
+
 // Normal Product view for Users
 Route::resource('product', ProductController::class)->except([
     'create', 'store', 'update', 'destroy'
@@ -44,6 +48,7 @@ Route::get('/logout',[LoginController::class,'logout']);
 Route::get('/register',[RegisterController::class,'create']);
 Route::post('/register',[RegisterController::class,'store'])->name('register');
 
+// For Admin 
 Route::middleware(['auth'])->group(function () {
     // For Admin 
     Route::resource('admin/products',App\Http\Controllers\Admin\ProductController::class)->except(
@@ -54,3 +59,4 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard',[App\Http\Controllers\Admin\ProductController::class,'dashboard']);
 });
+
