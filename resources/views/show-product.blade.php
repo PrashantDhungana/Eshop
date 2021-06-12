@@ -36,6 +36,9 @@
 
       </div>
     </div>
+    <div class="avgrating">
+      <span style="font-size: 35px; font-weight:bold;">{{ round($avgStar,2) }}</span>/5
+    </div>
     </div>
      
         <div class="feedbacks">
@@ -46,7 +49,20 @@
               <img src="/images/star.png" height="25" width="25">
               @endfor
               <div class="text1" style="color: rgb(119, 118, 118);">{{ $rating->user->name}}</div>
-              <div class="text1"><b>{{ $rating->comment}}</b></div>
+              <div class="text1">
+                <form action="/rating/{{$rating->id}}/edit" method="POST">
+                  @csrf 
+                  <input type="hidden" name="slug" value={{$product->slug}}>
+                  <b><input type="text" name="comment" value="{{ $rating->comment }}" 
+                    @if (Auth::user()->id == $rating->user->id) id="comment" @endif readonly></b>
+                  @if (Auth::user()->id == $rating->user->id)
+                    <button type="submit" class="btn btn-primary" onclick="edit(event);">Edit</button>
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+
+                @endif
+                </form>
+                
+              </div>
               </div>
                 <hr>
             @endforeach
@@ -74,6 +90,14 @@
     </div>
   </div>
   </div>
-
+<script>
+  function edit(event){
+    var textInp = document.getElementById('comment');
+    textInp.removeAttribute('readonly');
+    textInp.focus();
+    textInp.select();
+    event.preventDefault();
+  }
+</script>
   
 @endsection

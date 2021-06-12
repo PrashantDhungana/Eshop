@@ -27,7 +27,10 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->firstorFail();
         $ratings = Rating::where('product_id', $product->id)->get();
+
+        $starSum = $ratings->pluck('star')->sum();
+        $avgStar = $ratings->pluck('star')->avg();
         // return $product;
-        return view('show-product',compact('product','ratings'));
+        return view('show-product',compact('product','ratings','avgStar','starSum'));
     }
 }
