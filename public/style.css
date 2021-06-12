@@ -4979,3 +4979,20 @@ div.stars {
 /*=============================
 	End Footer CSS
 ===============================*/
+#button{
+	background: red;
+margin-right: 30px;
+margin-top: 30px;
+border: 1px solid red;
+	border-radius: 2px;
+
+}
+#button:hover , #button2:hover{
+	transform: scale(1.02);
+	transition: ease-in-out;
+}
+ #button2{
+	background-color: orange;
+	border: 1px solid orange;
+	border-radius: 2px;
+}

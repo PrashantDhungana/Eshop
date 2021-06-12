@@ -23,16 +23,21 @@
         <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=401&q=80">
         </div>
     <div class="col-6">
-      <div class="text1">
-      <h3 >{{ $product->name }}</h3>
+      <div class="text1" style="padding-top: 30px">
+      <h3  style="font-size: 30px">{{ $product->name }}</h3>
       <p>{{ $product->category->name }}</p>
-    </div>
-    </div>
-      <div class="container" style="padding-top: 35px;">
-        <div class="row" style="justify-content: center; font-family: Muli; font-size: 20px;"><div>Descriptions <br></div>
-        <div style="font-family: muli; font-size: 15px; font-weight: lighter; padding-top: 20px;">{{$product->details}}<br>
-        </div>  
+      <div class="div">
+        <h4>Description</h4>
+        <p>{{$product->details}}</p>
       </div>
+      <div class="but" style="padding-top: 20px">
+        <button type="button" class="btn btn-warning" id="button">Buy Now</button>
+        <button type="button" class="btn btn-danger" id="button2">Add to cart</button>
+
+      </div>
+    </div>
+    </div>
+     
         <div class="feedbacks">
           <span>Product Reviews</span>
             @foreach ($ratings as $rating)
