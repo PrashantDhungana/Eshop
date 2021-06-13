@@ -36,10 +36,23 @@ class ProductController extends Controller
 
     public function search(Request $request){
 
+        // if($request->news !== NULL{
+
+        // }
+        if($request->price !== NULL){
+            $minPrice = $this->trimPrice($request->price)[0];
+            $maxPrice = $this->trimPrice($request->price)[1];
+        }
+        else{
+            $minPrice = 0;
+            $maxPrice = 50000;
+
+        }
+        // dd($request->price);
         $categories = Category::latest()->get();
         $results = Product::categoryid($request->category)
         ->search($request->search)
-        ->price($request->price)
+        ->price($minPrice,$maxPrice)
         ->get();
         return view('search',compact('results','categories'));
 
@@ -65,5 +78,13 @@ class ProductController extends Controller
         
         // // return $categories;
         // return view('search',compact('results','categories'));`
+    }
+
+    public function trimPrice($data){
+        $data = explode('-',str_replace(' ', '', $data));
+        $min = str_replace('Rs.','', $data[0]);
+        $max = str_replace('Rs.','', $data[1]);
+        return [$min,$max];
+
     }
 }

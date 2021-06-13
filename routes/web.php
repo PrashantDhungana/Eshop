@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\OrderItemController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +38,14 @@ Route::resource('product', ProductController::class)->except([
 // Rating Route
 Route::post('/rating/{slug}',[RatingController::class,'store']);
 Route::post('/rating/{id}/edit',[RatingController::class,'update']);
+
+//For Shoppping Cart
+Route::resource('order', App\Http\Controllers\OrderController::class);
+Route::delete('/cart/{id}',[OrderItemController::class,'destroy'])->name('cart.destroy')->middleware('auth');
+Route::post('/cart',[OrderItemController::class,'store'])->name('cart.store')->middleware('auth');
+
+// Product Checkout
+Route::get('checkout',[OrderItemController::class,'index'])->name('cart.checkout')->middleware('auth');
 
 
 //Login 

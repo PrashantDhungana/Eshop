@@ -26,6 +26,7 @@
 											<div class="price-filter-inner">
 												<div id="slider-range"></div>
 													<div class="price_slider_amount">
+												<form action="">
 													<div class="label-input">
 														<span>Range:</span><input type="text" id="amount" name="price" placeholder="Add Your Price"/>
 													</div>
@@ -34,16 +35,18 @@
 										</div>
 										<ul class="check-box-list">
 											<li>
-												<label class="checkbox-inline" for="1"><input name="news" id="1" type="checkbox">$20 - $50<span class="count">(3)</span></label>
+												<label class="checkbox-inline" for="1"><input name="price" id="1" type="radio" value="Rs.20 - Rs.50">Rs.20 - Rs.50<span class="count">(3)</span></label>
 											</li>
 											<li>
-												<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">$50 - $100<span class="count">(5)</span></label>
+												<label class="checkbox-inline" for="2"><input name="price" id="2" type="radio" value="Rs.50 - Rs.100">Rs.50 - Rs.100<span class="count">(5)</span></label>
 											</li>
 											<li>
-												<label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox">$100 - $250<span class="count">(8)</span></label>
+												<label class="checkbox-inline" for="3"><input name="price" id="3" type="radio" value="Rs.100 - Rs.250">Rs.100 - Rs.250<span class="count">(8)</span></label>
 											</li>
 										</ul>
+										<button type="submit" class="btn btn-primary">Search by price</button>
 									</div>
+								</form>
 									<!--/ End Shop By Price -->
 								<!-- Single Widget -->
 								<div class="single-widget recent-post">
@@ -138,7 +141,6 @@
 											<select>
 												<option selected="selected">Name</option>
 												<option>Price</option>
-												<option>Size</option>
 											</select>
 										</div>
 									</div>
@@ -166,7 +168,13 @@
                                                     <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
                                                 </div>
                                                 <div class="product-action-2">
-                                                    <a title="Add to cart" href="#">Add to cart</a>
+                                                    <form action="{{ route('cart.store')}}" method="POST">
+														@csrf
+														<input type="hidden" name="product_id" value={{$search->id}}>
+														<button type="submit">
+															Add to cart
+														</button>
+													</form>
                                                 </div>
                                             </div>
                                         </div>

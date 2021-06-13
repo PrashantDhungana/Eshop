@@ -122,7 +122,13 @@
 																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
 															</div>
 															<div class="product-action-2">
-																<a title="Add to cart" href="#">Add to cart</a>
+																<form action="{{ route('cart.store')}}" method="POST">
+																	@csrf
+																	<input type="hidden" name="product_id" value={{$product->id}}>
+																	<button type="submit">
+																		Add to cart
+																	</button>
+																</form>
 															</div>
 														</div>
 													</div>
@@ -189,7 +195,13 @@
 																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
 															</div>
 															<div class="product-action-2">
-																<a title="Add to cart" href="#">Add to cart</a>
+																<form action="{{ route('cart.store')}}" method="POST">
+																	@csrf
+																	<input type="hidden" name="product_id" value={{$product->id}}>
+																	<button type="submit">
+																		Add to cart
+																	</button>
+																</form>
 															</div>
 														</div>
 													</div>

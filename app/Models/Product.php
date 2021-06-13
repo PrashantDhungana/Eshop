@@ -33,12 +33,12 @@ class Product extends Model
         return $query;
     }
 
-    // public function scopePrice($query, $price)
-    // {
-    //     if(!Empty($query)){
-    //         return $query->where('name', 'like','%'.$price.'%'); 
-    //     }
-    //     return $query;
-    // }
+    public function scopePrice($query, $min, $max)
+    {
+        if(!Empty($query)){
+            return $query->whereBetween('new_price', [$min, $max]); 
+        }
+        return $query;
+    }
 
 }
