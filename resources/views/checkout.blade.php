@@ -14,25 +14,26 @@
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>First Name<span>*</span></label>
-											<input type="text" name="name" placeholder="" required="required">
+											<input type="text" name="name" value="{{ explode(' ',Auth::user()->name)[0] }}" required="required">
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Last Name<span>*</span></label>
-											<input type="text" name="name" placeholder="" required="required">
+											<input type="text" name="name" value="@php $temp=explode(' ',Auth::user()->name);
+                                            echo end($temp); @endphp" required="required">
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Email Address<span>*</span></label>
-											<input type="email" name="email" placeholder="" required="required">
+											<input type="email" name="email" value="{{ Auth::user()->email }}" required="required">
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Phone Number<span>*</span></label>
-											<input type="number" name="number" placeholder="" required="required">
+											<input type="number" name="number" value="" required="required">
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
@@ -304,19 +305,19 @@
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Address Line 1<span>*</span></label>
-											<input type="text" name="address" placeholder="" required="required">
+											<input type="text" name="address" value="" required="required">
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Address Line 2<span>*</span></label>
-											<input type="text" name="address" placeholder="" required="required">
+											<input type="text" name="address" value="" required="required">
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Postal Code<span>*</span></label>
-											<input type="text" name="post" placeholder="" required="required">
+											<input type="text" name="post" value="" required="required">
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">

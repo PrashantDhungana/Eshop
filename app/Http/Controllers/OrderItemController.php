@@ -21,7 +21,7 @@ class OrderItemController extends Controller
      */
     public function index()
     {
-        return view('order');
+        return view('checkout');
     }
 
     /**

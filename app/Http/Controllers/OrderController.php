@@ -17,7 +17,9 @@ class OrderController extends Controller
     {
         $order_id = session('order_id', 0);
         $order = Order::find($order_id);
-        $order_items = OrderItem::whereOrderId($order_id)->get();
+        // Sir's approach
+        // $order_items = OrderItem::whereOrderId($order_id)->get();
+        $order_items = OrderItem::all();
         
         return view('order',compact('order_items'));
     }

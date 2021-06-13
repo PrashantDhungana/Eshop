@@ -1,3 +1,4 @@
+{{-- @dd(session('order_id')) --}}
 @extends('layout')
 @section('content')
 @if (session('success'))
