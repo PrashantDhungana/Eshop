@@ -118,7 +118,11 @@ class OrderItemController extends Controller
      */
     public function destroy($id)
     {
-        $result = OrderItem::find($id)->delete();
+        $order_item = OrderItem::find($id);
+        $order_item->order->sub_total -= $order_item->product->new_price;
+        
+        $order_item->order->save();
+        $order_item->delete();
         return redirect()->back()->with('success','The item was deleted successfully.');
     }
 }

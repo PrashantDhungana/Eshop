@@ -75,18 +75,18 @@
 											<button class="btn">Apply</button>
 										</form>
 									</div>
-									<div class="checkbox">
+									{{-- <div class="checkbox">
 										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Shipping (+10$)</label>
-									</div>
+									</div> --}}
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
-										<li>Cart Subtotal<span>Rs.{{ $order->total}}</span></li>
+										<li>Cart Subtotal<span>Rs.{{ $order->order->sub_total}}</span></li>
 										<li>Shipping<span>Free</span></li>
 										{{-- <li>You Save<span>$20.00</span></li> --}}
-										<li class="last">You Pay<span>Rs.{{ $order->total}}</span></li>
+										<li class="last">You Pay<span>Rs.{{ $order->order->sub_total}}</span></li>
 									</ul>
 									<div class="button5">
 										<a href="#" class="btn">Checkout</a>

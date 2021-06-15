@@ -16,7 +16,7 @@ class OrderController extends Controller
     public function index()
     {
         $order_id = session('order_id', 0);
-        $order = Order::find($order_id);
+        // $order = Order::find($order_id);
         // Sir's approach
         // $order_items = OrderItem::whereOrderId($order_id)->get();
         $order_items = OrderItem::all();

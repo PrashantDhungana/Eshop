@@ -40,6 +40,10 @@ class LoginController extends Controller
         // if(OrderItem::truncate())
         //     Order::truncate();
         // dd($result);
+        $order = Order::find(session('order_id'));
+        $order->orderItems()->delete();
+        $order->delete();
+        
         Auth::logout();
         $request->session()->invalidate();
     

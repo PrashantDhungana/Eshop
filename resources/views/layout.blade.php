@@ -226,13 +226,13 @@
 										<div class="nav-inner">	
 											<ul class="nav main-menu menu navbar-nav">
 													<li class="active"><a href="#">Home</a></li>
-													<li><a href="#">Product</a></li>												
+													<li><a href="{{ route('product.index') }}">Product</a></li>												
 													<li><a href="#">Service</a></li>
 													<li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
 														<ul class="dropdown">
 															<li><a href="shop-grid.html">Shop Grid</a></li>
-															<li><a href="cart.html">Cart</a></li>
-															<li><a href="checkout.html">Checkout</a></li>
+															<li><a href=" {{route('order.index')}}">Cart</a></li>
+															<li><a href="/checkout">Checkout</a></li>
 														</ul>
 													</li>
 													<li><a href="#">Pages</a></li>									
@@ -243,8 +243,7 @@
 													</li>
 													<li><a href="contact.html">Contact Us</a></li>
 												</ul>
-										</div>
-									</div>
+										</div>									</div>
 								</nav>
 								<!--/ End Main Menu -->	
 							</div>
@@ -260,13 +259,13 @@
 										<div class="nav-inner">	
 											<ul class="nav main-menu menu navbar-nav">
 												<li class="active"><a href="#">Home</a></li>
-												<li><a href="#">Product</a></li>												
+												<li><a href="{{ route('product.index')}}">Product</a></li>												
 												<li><a href="#">Service</a></li>
 												<li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
 													<ul class="dropdown">
 														<li><a href="shop-grid.html">Shop Grid</a></li>
-														<li><a href="cart.html">Cart</a></li>
-														<li><a href="checkout.html">Checkout</a></li>
+														<li><a href="{{ route('order.index') }}">Cart</a></li>
+														<li><a href="/checkout">Checkout</a></li>
 													</ul>
 												</li>
 												<li><a href="#">Pages</a></li>									
