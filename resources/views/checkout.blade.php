@@ -352,9 +352,9 @@
 								<h2>CART  TOTALS</h2>
 								<div class="content">
 									<ul>
-										<li>Sub Total<span>$330.00</span></li>
-										<li>(+) Shipping<span>$10.00</span></li>
-										<li class="last">Total<span>$340.00</span></li>
+										<li>Sub Total<span>Rs.{{ $order->sub_total }}</span></li>
+										<li>(+) Shipping<span>FREE</span></li>
+										<li class="last">Total<span>Rs.{{ $order->sub_total }}</span></li>
 									</ul>
 								</div>
 							</div>
@@ -364,7 +364,7 @@
 								<h2>Payments</h2>
 								<div class="content">
 									<div class="checkbox">
-										<label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox"> Check Payments</label>
+										<label class="checkbox-inline" for="1"><input name="news" id="1" type="checkbox"> Check Payments</label>
 										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Cash On Delivery</label>
 										<label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox"> PayPal</label>
 									</div>

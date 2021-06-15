@@ -29,7 +29,7 @@
         <div class="bottom">
             <div class="total">
                 <span>Total</span>
-                <span class="total-amount">Rs.</span>
+                <span class="total-amount">Rs.{{ App\Models\Order::first()->sub_total}}</span>
             </div>
             <a href="checkout.html" class="btn animate">Checkout</a>
         </div>

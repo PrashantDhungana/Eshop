@@ -89,7 +89,7 @@
 										<li class="last">You Pay<span>Rs.{{ $order->order->sub_total}}</span></li>
 									</ul>
 									<div class="button5">
-										<a href="#" class="btn">Checkout</a>
+										<a href="/checkout" class="btn">Checkout</a>
 										<a href="{{ route('product.index')}}" class="btn">Continue shopping</a>
 									</div>
 								</div>

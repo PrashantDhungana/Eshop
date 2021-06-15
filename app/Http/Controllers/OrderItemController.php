@@ -21,7 +21,8 @@ class OrderItemController extends Controller
      */
     public function index()
     {
-        return view('checkout');
+        $order = Order::firstorFail();
+        return view('checkout',compact('order'));
     }
 
     /**

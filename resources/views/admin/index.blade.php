@@ -17,7 +17,7 @@
                 <td>New price</td>
                 <td>Old price</td>
                 <td>Image</td>
-                <td>Action</td>
+                <td colspan="2"><center>Action</center></td>
             </tr>
             @foreach ($products as $product)
               <tr>
@@ -28,13 +28,16 @@
                 <td>{{ $product->old_price }}</td>
                 <td> <img src="/storage/images/{{ $product->image }}" height="200" width="200"/></td>
                 <td>
-                    <a href="{{ route('products.edit', $product->slug)}}"> Edit </a> | 
-                    <form action="{{ route('products.destroy', $product->slug)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"> Delete </button>
-                    
-                    </form>
+                  @can('update-product', $product)
+                  <a class="btn btn-primary" href="{{ route('products.edit', $product->slug)}}"> Edit </a>
+                  @endcan
+                </td>
+                <td>
+                  <form action="{{ route('products.destroy', $product->slug)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" type="submit"> Delete </button>
+                  </form>
                 </td>
               </tr>
             @endforeach

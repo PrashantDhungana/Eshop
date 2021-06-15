@@ -8,6 +8,9 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+
 
 class ProductController extends Controller
 {
@@ -82,7 +85,7 @@ class ProductController extends Controller
         $product->slug = Str::slug($request->product_name, '-');
         $product->category_id = $request->cat_name;
         $product->image = $fullname;
-
+        $product->user_id = Auth::id();
         if($product->save()) return redirect()->route('products.index')->with('success','Product inserted successfully');
         
 
@@ -123,6 +126,10 @@ class ProductController extends Controller
      */
     public function update(Request $request, $slug)
     {
+        $product = Product::where('slug',$slug)->firstorFail();
+        if (! Gate::allows('update-product',$product)) {
+            abort(403);
+        }
         $request->validate([
             'product_name' => 'required',
             'description' => 'required|max:255',
@@ -130,7 +137,6 @@ class ProductController extends Controller
             'cat_name' => 'required|numeric',
             // 'product_img' => 'image',
         ]); 
-        $product = Product::where('slug',$slug)->firstorFail();
         $product->name = $request->product_name; 
         $product->details  = $request->description;
         $product->old_price = $request->old_price;
