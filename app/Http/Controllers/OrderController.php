@@ -15,13 +15,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order_id = session('order_id', 0);
-        // $order = Order::find($order_id);
-        // Sir's approach
-        // $order_items = OrderItem::whereOrderId($order_id)->get();
-        $order_items = OrderItem::all();
-        
-        return view('order',compact('order_items'));
+
+        $orders = Order::all();
+        return view('admin.order',compact('orders'));
     }
 
     /**
@@ -87,5 +83,8 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
+        $order = Order::find($id);
+        $order->orderItems()->delete();
+        if($order->delete()) return redirect()->route('order.index');
     }
 }

@@ -1,7 +1,8 @@
 <?php
     use App\Models\OrderItem;
-    $orders = OrderItem::all();
-    $count = count($orders);
+    $order_id = session('order_id', 0);
+    $orders = OrderItem::whereOrderId($order_id)->get();
+    $count= count($orders);
 ?>
 <div class="sinlge-bar shopping">
     <a href="{{ route('order.index') }}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{$count}}</span></a>
@@ -10,7 +11,7 @@
     <div class="shopping-item">
         <div class="dropdown-cart-header">
             <span>{{ $count }} Item{{$count ==1?'':'s'}}</span>
-            <a href="{{ route('order.index') }}">View Cart</a>
+            <a href="{{ route('cart.index') }}">View Cart</a>
         </div>
         <ul class="shopping-list">
         @foreach ($orders as $order)	
@@ -29,7 +30,7 @@
         <div class="bottom">
             <div class="total">
                 <span>Total</span>
-                <span class="total-amount">Rs.{{ App\Models\Order::first()->sub_total}}</span>
+                <span class="total-amount">Rs.{{ App\Models\Order::first() != NULL? App\Models\Order::first()->sub_total: '0' }}</span>
             </div>
             <a href="checkout.html" class="btn animate">Checkout</a>
         </div>

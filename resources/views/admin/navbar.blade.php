@@ -17,9 +17,11 @@
             <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i> Pages</a>
             <nav class="az-menu-sub">
               <a href="/admin/products" class="nav-link">View Products</a>
-              <a href="/admin/products/create" class="nav-link">Create</a>
+              <a href="/admin/products/create" class="nav-link">Create Product</a>
               <a href="/admin/categories" class="nav-link">View Categories</a>
               <a href="/admin/categories/create" class="nav-link">Create Category</a>
+              <a href="/admin/order" class="nav-link">View Orders</a>
+
 
             </nav>
           </li>

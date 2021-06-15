@@ -29,6 +29,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('update-product',function(User $user,Product $product ){
             return $product->user_id == $user->id;
         });
+
+        // Gate::define('view-product',function(User $user,Product $product ){
+        //     return $product->user_id == $user->id;
+        // });
         //
     }
 }

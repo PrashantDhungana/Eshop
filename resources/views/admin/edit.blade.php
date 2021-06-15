@@ -9,7 +9,7 @@
         </ul>
     </div>
 @endif
-{{-- @can('update-product', $product) --}}
+@can('update-product', $product)
   
   <div class="container">
     <form action="{{ route('products.update',$product->slug) }}" method="POST">
@@ -46,9 +46,9 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
-    {{-- @else 
+    @else 
     <div class="container alert-danger text-danger">
       You are not Authorized to update this product. <a href="{{ route('products.index')}}">Go Back !!!</a>
     </div>
-  @endcan --}}
+  @endcan
 @endsection

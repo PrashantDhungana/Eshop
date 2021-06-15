@@ -21,8 +21,13 @@ class OrderItemController extends Controller
      */
     public function index()
     {
-        $order = Order::firstorFail();
-        return view('checkout',compact('order'));
+        $order_id = session('order_id', 0);
+        // $order = Order::find($order_id);
+        // Sir's approach
+        $order_items = OrderItem::whereOrderId($order_id)->get();
+        // $order_items = OrderItem::all();
+        
+        return view('order',compact('order_items'));
     }
 
     /**
@@ -72,9 +77,8 @@ class OrderItemController extends Controller
         $order = Order::find($order_id);
         $order->sub_total += $order_item->total;
         
-        $order->save();
-        
-        return redirect(route('order.index'));
+        if($order->save())
+            return redirect(route('cart.index'));
     }
 
     /**

@@ -40,12 +40,12 @@ Route::post('/rating/{slug}',[RatingController::class,'store']);
 Route::post('/rating/{id}/edit',[RatingController::class,'update']);
 
 //For Shoppping Cart
-Route::resource('order', App\Http\Controllers\OrderController::class);
 Route::delete('/cart/{id}',[OrderItemController::class,'destroy'])->name('cart.destroy')->middleware('auth');
 Route::post('/cart',[OrderItemController::class,'store'])->name('cart.store')->middleware('auth');
+Route::get('/cart',[OrderItemController::class,'index'])->name('cart.index')->middleware('auth');
 
 // Product Checkout
-Route::get('checkout',[OrderItemController::class,'index'])->name('cart.checkout')->middleware('auth');
+Route::get('checkout',[App\Http\Controllers\CheckoutController::class,'index'])->name('cart.checkout')->middleware('auth');
 
 
 //Login 
@@ -65,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('admin/categories',App\Http\Controllers\Admin\CategoryController::class)->except(
         'show');
+
+    Route::resource('/admin/order', App\Http\Controllers\OrderController::class);
 
     Route::get('/dashboard',[App\Http\Controllers\Admin\ProductController::class,'dashboard']);
 });
