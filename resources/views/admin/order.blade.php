@@ -18,7 +18,7 @@
             </tr>
             @foreach ($orders as $order)
               <tr>
-                <td><a href="#">{{ $order->id }}</a></td>
+                <td><a href="{{ route('order.show',$order->id) }}">{{ $order->id }}</a></td>
                 <td> {{ $order->user->name }} </td>
                 <td> {{ $order->order_status }}</td>
                 <td>{{ $order->sub_total }}</td>
@@ -26,7 +26,10 @@
                 <td>{{ $order->shipping_address }}</td>
                 <td>{{ $order->shipping_price }}</td>
                 <td>{{ $order->total_price }}</td>
-                <td><a href="#">View</a></td>
+                <td><a class="btn btn-primary" href="{{route('order.show',$order->id)}}" style="padding: 5px;margin:5px;"
+                  title="@foreach($order->orderItems as $item){{ substr($item->product->name,0,500) }}
+@endforeach">
+                  View({{$count = count($order->orderItems)}} item{{ $count==1?'':'s'}})</a></td>
                 <td>
                   <form action="{{ route('order.destroy',$order->id)}}" method="POST">
                     @csrf

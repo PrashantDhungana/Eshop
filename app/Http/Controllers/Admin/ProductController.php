@@ -21,6 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // dd(Auth::user()->is_admin());
         $products = Product::all();
         return view('admin.index',compact('products'));
     }
@@ -127,7 +128,7 @@ class ProductController extends Controller
     public function update(Request $request, $slug)
     {
         $product = Product::where('slug',$slug)->firstorFail();
-        if (! Gate::allows('update-product',$product)) {
+        if (! Gate::allows('update',$product)) {
             abort(403);
         }
         $request->validate([
@@ -155,7 +156,12 @@ class ProductController extends Controller
      */
     public function destroy($slug)
     {
-        $result = Product::where('slug',$slug)->delete();
+        $product = Product::where('slug',$slug)->firstorFail();
+        if (! Gate::allows('delete',$product)) {
+            abort(403);
+        }
+        // $this->authorize('delete',$product);
+        $result= $product->delete();
         if($result) return redirect()->route('products.index')->with('success','Product deleted successfully');
     }
 }

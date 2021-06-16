@@ -9,7 +9,7 @@
         </ul>
     </div>
 @endif
-@can('update-product', $product)
+@can('update', $product)
   
   <div class="container">
     <form action="{{ route('products.update',$product->slug) }}" method="POST">

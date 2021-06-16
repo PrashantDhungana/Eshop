@@ -14,6 +14,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    // public function orerItem(){
+    //     return $this->
+    // }
     //Local Scopes
     public function scopeCategoryid($query,$category)
     {

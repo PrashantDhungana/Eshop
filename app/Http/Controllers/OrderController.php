@@ -17,6 +17,7 @@ class OrderController extends Controller
     {
 
         $orders = Order::all();
+        // return $orders[0]->orderItems;
         return view('admin.order',compact('orders'));
     }
 
@@ -49,7 +50,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);
+        $order_items = $order->orderItems;
+        return view('admin.orderItems', compact('order_items'));
     }
 
     /**
@@ -83,8 +86,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        $order = Order::find($id);
-        $order->orderItems()->delete();
-        if($order->delete()) return redirect()->route('order.index');
+        $order_item = OrderItem::find($id)->delete();
+        if($order_item) return redirect()->back();
     }
 }

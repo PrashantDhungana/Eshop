@@ -101,7 +101,8 @@
 			</div>
 		</div>
 	</div>
-	<!--/ End Shopping Cart -->
+</div>
+<!--/ End Shopping Cart -->
 @else
 <div class="container">
    <span> There are no Orders here!!! </span> <a class="btn btn-primary text-white" href="{{route('product.index')}}">Continue Shopping</a>
