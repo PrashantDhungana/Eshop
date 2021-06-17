@@ -30,7 +30,7 @@
         <div class="bottom">
             <div class="total">
                 <span>Total</span>
-                <span class="total-amount">Rs.{{ App\Models\Order::first() != NULL? App\Models\Order::first()->sub_total: '0' }}</span>
+                <span class="total-amount">Rs.@isset($order){{ $order->sub_total}}@endisset</span>
             </div>
             <a href="checkout.html" class="btn animate">Checkout</a>
         </div>

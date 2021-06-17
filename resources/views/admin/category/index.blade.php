@@ -7,7 +7,7 @@
 <div class="az-content az-content-dashboard">
     <div class="container">
       <div class="az-content-body">
-        <a href="{{ route('categories.create') }}">Create Product</a>
+        <a href="{{ route('categories.create') }}">Create Category</a>
         {{-- {{ Auth::user()->name }} --}}
         <table width="900" align="center" border="1px solid black">
             <tr>
@@ -18,7 +18,9 @@
                 <td>Parent ID</td>
                 <td>Created At</td>
                 <td>Updated At</td>
-                <td colspan="2"><center>Actions</center></td>
+                @can('update', $categories)
+                  <td colspan="2"><center>Actions</center></td>
+                @endcan
             </tr>
             @foreach ($categories as $category)
               <tr>
@@ -29,15 +31,16 @@
                 <td>{{ $category->parent_id }}</td>
                 <td>{{ $category->created_at }}</td>
                 <td>{{ $category->updated_at }} </td>
+                @can('update', $category)
                 <td>
                     <a class="btn btn-primary" href="{{ route('categories.edit', $category->slug)}}"> Edit </a>
                 </td>
-                <td><form action="{{ route('categories.destroy', $category->slug)}}" method="POST">
+                  <td><form action="{{ route('categories.destroy', $category->slug)}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger" type="submit"> Delete </button>
-                
-                </form></td>
+                  </form></td>
+                @endcan
               </tr>
             @endforeach
         </table>
