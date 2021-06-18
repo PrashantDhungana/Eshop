@@ -89,11 +89,15 @@
 								<li><i class="ti-location-pin"></i> Store location</li>
 								<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
 								<li><i class="ti-user"></i> <a href="#">My account</a></li>
-								<li><i class="ti-power-off"></i><a href="login.html#">Login</a></li>
-								@auth
-								<li><i class="ti-power-off"></i><a href="/logout">Logout</a></li>	
-								@endauth
 
+								
+								@if (Auth::check())
+									<li><i class="ti-power-off"></i><a href="/logout">Logout</a></li>		
+								@else
+									<li><i class="ti-power-off"></i><a href="/login">Login</a></li>
+								@endif
+								@auth
+								@endauth
 							</ul>
 						</div>
 						<!-- End Top Right -->

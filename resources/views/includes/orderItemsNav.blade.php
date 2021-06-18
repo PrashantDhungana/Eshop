@@ -2,6 +2,7 @@
     use App\Models\OrderItem;
     $order_id = session('order_id', 0);
     $orders = OrderItem::whereOrderId($order_id)->get();
+    // dump($orders);
     $count= count($orders);
 ?>
 <div class="sinlge-bar shopping">
@@ -30,9 +31,11 @@
         <div class="bottom">
             <div class="total">
                 <span>Total</span>
-                <span class="total-amount">Rs.@isset($order){{ $order->sub_total}}@endisset</span>
+                <span class="total-amount">Rs. @if ($orders->first())
+                {{ $orders->first()->order->sub_total}}                   
+                @else 0 @endif</span>
             </div>
-            <a href="checkout.html" class="btn animate">Checkout</a>
+            <a href="/checkout" class="btn animate">Checkout</a>
         </div>
     </div>
     <!--/ End Shopping Item -->
