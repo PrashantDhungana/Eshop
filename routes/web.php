@@ -46,7 +46,7 @@ Route::get('/cart',[OrderItemController::class,'index'])->name('cart.index')->mi
 
 // Product Checkout
 Route::get('checkout',[App\Http\Controllers\CheckoutController::class,'index'])->name('cart.checkout')->middleware('auth');
-Route::post('checkout',[App\Http\Controllers\CheckoutController::class,'store'])->name('cart.store')->middleware('auth');
+Route::post('checkout',[App\Http\Controllers\CheckoutController::class,'store'])->name('checkout.store')->middleware('auth');
 
 
 
@@ -71,5 +71,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/admin/order', App\Http\Controllers\OrderController::class);
 
     Route::get('/dashboard',[App\Http\Controllers\Admin\ProductController::class,'dashboard']);
+
+    Route::resource('/admin/report', App\Http\Controllers\Admin\ReportController::class);
 });
 

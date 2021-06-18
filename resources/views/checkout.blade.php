@@ -3,9 +3,9 @@
     		<!-- Start Checkout -->
 		<section class="shop checkout section">
 			<div class="container">
-				@if($order->first()->sub_total > 0)
+				@if($order->first())
 				<!-- Form -->
-				<form class="form" method="post" action="{{ route('cart.store') }}">	
+				<form class="form" method="post" action="{{ route('checkout.store') }}">	
 					@csrf
 					<div class="row"> 
 						<div class="col-lg-8 col-12">
@@ -17,26 +17,26 @@
 										<div class="col-lg-6 col-md-6 col-12">
 											<div class="form-group">
 												<label>First Name<span>*</span></label>
-												<input type="text" name="name" value="{{ explode(' ',Auth::user()->name)[0] }}" required="required">
+												<input type="text" value="{{ explode(' ',Auth::user()->name)[0] }}" required="required" readonly>
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-12">
 											<div class="form-group">
 												<label>Last Name<span>*</span></label>
-												<input type="text" name="name" value="@php $temp=explode(' ',Auth::user()->name);
-												echo end($temp); @endphp" required="required">
+												<input type="text" value="@php $temp=explode(' ',Auth::user()->name);
+												echo end($temp); @endphp" required="required" readonly>
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-12">
 											<div class="form-group">
 												<label>Email Address<span>*</span></label>
-												<input type="email" name="email" value="{{ Auth::user()->email }}" required="required">
+												<input type="email" value="{{ Auth::user()->email }}" required="required" readonly>
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-12">
 											<div class="form-group">
 												<label>Phone Number<span>*</span></label>
-												<input type="number" name="number" value="" required="required">
+												<input type="number" name="number" required="required">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-12">
@@ -194,7 +194,7 @@
 													<option value="MM">Myanmar [Burma]</option>
 													<option value="NA">Namibia</option>
 													<option value="NR">Nauru</option>
-													<option value="NP">Nepal</option>
+													<option value="NP" selected>Nepal</option>
 													<option value="NL">Netherlands</option>
 													<option value="AN">Netherlands Antilles</option>
 													<option value="NC">New Caledonia</option>
@@ -274,7 +274,7 @@
 													<option value="UG">Uganda</option>
 													<option value="UA">Ukraine</option>
 													<option value="AE">United Arab Emirates</option>
-													<option value="US" selected="selected">United Kingdom</option>
+													<option value="US">United Kingdom</option>
 													<option value="UY">Uruguay</option>
 													<option value="UM">U.S. Minor Outlying Islands</option>
 													<option value="VI">U.S. Virgin Islands</option>
@@ -320,20 +320,17 @@
 										<div class="col-lg-6 col-md-6 col-12">
 											<div class="form-group">
 												<label>Postal Code<span>*</span></label>
-												<input type="text" name="post" value="" required="required">
+												<input type="text" name="postal" value="" required="required">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-12">
 											<div class="form-group">
 												<label>Company<span>*</span></label>
 												<select name="company_name" id="company">
-													<option value="company" selected="selected">Microsoft</option>
-													<option>Apple</option>
-													<option>Xaiomi</option>
-													<option>Huawer</option>
-													<option>Wpthemesgrid</option>
-													<option>Samsung</option>
-													<option>Motorola</option>
+													<option value="microsoft" selected="selected">Microsoft</option>
+													<option value="apple">Apple</option>
+													<option value="xaiomi">Xaiomi</option>
+													<option value="samsung">Samsung</option>
 												</select>
 											</div>
 										</div>
@@ -370,9 +367,9 @@
 									<h2>Payments</h2>
 									<div class="content">
 										<div class="checkbox">
-											<label class="checkbox-inline"><input name="news" id="1" type="checkbox"> Check Payments</label>
-											<label class="checkbox-inline"><input name="news" id="2" type="checkbox"> Cash On Delivery</label>
-											<label class="checkbox-inline"><input name="news" id="3" type="checkbox"> PayPal</label>
+											<label class="checkbox-inline"><input name="pay_option[]" id="1" type="checkbox" value="1"> Check Payments</label>
+											<label class="checkbox-inline"><input name="pay_option[]" id="2" type="checkbox" value="2"> Cash On Delivery</label>
+											<label class="checkbox-inline"><input name="pay_option[]" id="3" type="checkbox" value="3"> PayPal</label>
 										</div>
 									</div>
 								</div>

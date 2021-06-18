@@ -88,7 +88,15 @@
 							<ul class="list-main">
 								<li><i class="ti-location-pin"></i> Store location</li>
 								<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
-								<li><i class="ti-user"></i> <a href="#">My account</a></li>
+								<li><i class="ti-user"></i> 
+									<a href="#">
+										@if (Auth::check())
+										{{Auth::user()->name}}	
+										@else
+											My Account
+										@endif
+									</a>
+								</li>
 
 								
 								@if (Auth::check())

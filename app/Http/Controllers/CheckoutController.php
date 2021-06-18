@@ -15,4 +15,8 @@ class CheckoutController extends Controller
         $order = Order::where('id', $order_id)->get();
         return view('checkout',compact('order'));
     }
+
+    public function store(Request $request){
+        return $request;
+    }
 }
