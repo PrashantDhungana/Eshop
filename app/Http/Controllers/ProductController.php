@@ -33,4 +33,58 @@ class ProductController extends Controller
         // return $product;
         return view('show-product',compact('product','ratings','avgStar','starSum'));
     }
+
+    public function search(Request $request){
+
+        // if($request->news !== NULL{
+
+        // }
+        if($request->price !== NULL){
+            $minPrice = $this->trimPrice($request->price)[0];
+            $maxPrice = $this->trimPrice($request->price)[1];
+        }
+        else{
+            $minPrice = 0;
+            $maxPrice = 50000;
+
+        }
+        // dd($request->price);
+        $categories = Category::latest()->get();
+        $results = Product::categoryid($request->category)
+        ->search($request->search)
+        ->price($minPrice,$maxPrice)
+        ->get();
+        return view('search',compact('results','categories'));
+
+        // $products = Product::latest();
+        // $categories = Category::latest()->get();
+        // if(request('search') !== NULL)
+        // {
+        //     $products->where('name', 'like','%'.request('search').'%')
+        //             ->orWhere('details', 'like','%'.request('search').'%')
+        //             ->orWhere('new_price', 'like','%'.request('search').'%'); 
+        // }
+        // dump($products->get());
+
+        // // dd(request('category'));
+        // if(request('category') !== NULL)
+        // {
+        //     $products->where('category_id',request('category'));
+        // }
+        // dump($products->get());
+
+        // $results = $products->get();
+
+        
+        // // return $categories;
+        // return view('search',compact('results','categories'));`
+    }
+
+    public function trimPrice($data){
+        $data = explode('-',str_replace(' ', '', $data));
+        $min = str_replace('Rs.','', $data[0]);
+        $max = str_replace('Rs.','', $data[1]);
+        return [$min,$max];
+
+    }
 }

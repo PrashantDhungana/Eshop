@@ -88,12 +88,24 @@
 							<ul class="list-main">
 								<li><i class="ti-location-pin"></i> Store location</li>
 								<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
-								<li><i class="ti-user"></i> <a href="#">My account</a></li>
-								<li><i class="ti-power-off"></i><a href="login.html#">Login</a></li>
-								@auth
-								<li><i class="ti-power-off"></i><a href="/logout">Logout</a></li>	
-								@endauth
+								<li><i class="ti-user"></i> 
+									<a href="#">
+										@if (Auth::check())
+										{{Auth::user()->name}}	
+										@else
+											My Account
+										@endif
+									</a>
+								</li>
 
+								
+								@if (Auth::check())
+									<li><i class="ti-power-off"></i><a href="/logout">Logout</a></li>		
+								@else
+									<li><i class="ti-power-off"></i><a href="/login">Login</a></li>
+								@endif
+								@auth
+								@endauth
 							</ul>
 						</div>
 						<!-- End Top Right -->
@@ -108,7 +120,7 @@
 					<div class="col-lg-2 col-md-2 col-12">
 						<!-- Logo -->
 						<div class="logo">
-							<a href="index.html"><img src="/images/logo.png" alt="logo"></a>
+							<a href="{{ route('product.index') }}"><img src="/images/logo.png" alt="logo"></a>
 						</div>
 						<!--/ End Logo -->
 						<!-- Search Form -->
@@ -127,20 +139,7 @@
 						<div class="mobile-nav"></div>
 					</div>
 					<div class="col-lg-8 col-md-7 col-12">
-						<div class="search-bar-top">
-							<div class="search-bar">
-								<select>
-									<option selected="selected">All Category</option>
-									<option>watch</option>
-									<option>mobile</option>
-									<option>kid’s item</option>
-								</select>
-								<form>
-									<input name="search" placeholder="Search Products Here....." type="search">
-									<button class="btnn"><i class="ti-search"></i></button>
-								</form>
-							</div>
-						</div>
+						@include('includes.category_list')
 					</div>
 					<div class="col-lg-2 col-md-3 col-12">
 						<div class="right-bar">
@@ -151,38 +150,7 @@
 							<div class="sinlge-bar">
 								<a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 							</div>
-							<div class="sinlge-bar shopping">
-								<a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>
-								<!-- Shopping Item -->
-								<div class="shopping-item">
-									<div class="dropdown-cart-header">
-										<span>2 Items</span>
-										<a href="#">View Cart</a>
-									</div>
-									<ul class="shopping-list">
-										<li>
-											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-											<h4><a href="#">Woman Ring</a></h4>
-											<p class="quantity">1x - <span class="amount">$99.00</span></p>
-										</li>
-										<li>
-											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-											<h4><a href="#">Woman Necklace</a></h4>
-											<p class="quantity">1x - <span class="amount">$35.00</span></p>
-										</li>
-									</ul>
-									<div class="bottom">
-										<div class="total">
-											<span>Total</span>
-											<span class="total-amount">$134.00</span>
-										</div>
-										<a href="checkout.html" class="btn animate">Checkout</a>
-									</div>
-								</div>
-								<!--/ End Shopping Item -->
-							</div>
+							@include('includes.orderItemsNav')		
 						</div>
 					</div>
 				</div>
@@ -192,7 +160,8 @@
 		<div class="header-inner">
 			<div class="container">
 				<div class="cat-nav-head">
-					{{-- <div class="row">
+					@if(Route::currentRouteName() == 'product.index')
+					<div class="row">
 						<div class="col-lg-3">
 							<div class="all-category">
 								<h3 class="cat-heading"><i class="fa fa-bars" aria-hidden="true"></i>CATEGORIES</h3>
@@ -269,13 +238,13 @@
 										<div class="nav-inner">	
 											<ul class="nav main-menu menu navbar-nav">
 													<li class="active"><a href="#">Home</a></li>
-													<li><a href="#">Product</a></li>												
+													<li><a href="{{ route('product.index') }}">Product</a></li>												
 													<li><a href="#">Service</a></li>
 													<li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
 														<ul class="dropdown">
 															<li><a href="shop-grid.html">Shop Grid</a></li>
-															<li><a href="cart.html">Cart</a></li>
-															<li><a href="checkout.html">Checkout</a></li>
+															<li><a href=" {{route('order.index')}}">Cart</a></li>
+															<li><a href="/checkout">Checkout</a></li>
 														</ul>
 													</li>
 													<li><a href="#">Pages</a></li>									
@@ -286,13 +255,49 @@
 													</li>
 													<li><a href="contact.html">Contact Us</a></li>
 												</ul>
+										</div>									</div>
+								</nav>
+								<!--/ End Main Menu -->	
+							</div>
+						</div>
+					</div>
+					@else
+					<div class="row">
+						<div class="col-12">
+							<div class="menu-area">
+								<!-- Main Menu -->
+								<nav class="navbar navbar-expand-lg">
+									<div class="navbar-collapse">	
+										<div class="nav-inner">	
+											<ul class="nav main-menu menu navbar-nav">
+												<li class="active"><a href="#">Home</a></li>
+												<li><a href="{{ route('product.index')}}">Product</a></li>												
+												<li><a href="#">Service</a></li>
+												<li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
+													<ul class="dropdown">
+														<li><a href="shop-grid.html">Shop Grid</a></li>
+														<li><a href="{{ route('order.index') }}">Cart</a></li>
+														<li><a href="/checkout">Checkout</a></li>
+													</ul>
+												</li>
+												<li><a href="#">Pages</a></li>									
+												<li><a href="#">Blog<i class="ti-angle-down"></i></a>
+													<ul class="dropdown">
+														<li><a href="blog-single-sidebar.html">Blog Single Sidebar</a></li>
+													</ul>
+												</li>
+												<li><a href="contact.html">Contact Us</a></li>
+											</ul>
 										</div>
 									</div>
 								</nav>
 								<!--/ End Main Menu -->	
 							</div>
 						</div>
-					</div> --}}
+					</div>
+					@endif
+
+					
 				</div>
 			</div>
 		</div>
@@ -313,7 +318,7 @@
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<a href="index.html"><img src="/images/logo2.png" alt="#"></a>
+								<a href="{{ route('product.index') }}"><img src="/images/logo2.png" alt="#"></a>
 							</div>
 							<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
 							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
@@ -346,6 +351,7 @@
 								<li><a href="#">Privacy Policy</a></li>
 							</ul>
 						</div>
+
 						<!-- End Single Widget -->
 					</div>
 					<div class="col-lg-3 col-md-6 col-12">

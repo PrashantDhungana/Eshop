@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\OrderItemController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +26,10 @@ Route::get('/', function () {
 // Route::get('/product/{slug}',[ProductController::class,'show']);
 // Route::post('/product/create',[ProductController::class,'store'])->name('store.product');
 
+//For Search
+Route::get('/search',[ProductController::class,'search']);
+
+
 // Normal Product view for Users
 Route::resource('product', ProductController::class)->except([
     'create', 'store', 'update', 'destroy'
@@ -33,6 +38,16 @@ Route::resource('product', ProductController::class)->except([
 // Rating Route
 Route::post('/rating/{slug}',[RatingController::class,'store']);
 Route::post('/rating/{id}/edit',[RatingController::class,'update']);
+
+//For Shoppping Cart
+Route::delete('/cart/{id}',[OrderItemController::class,'destroy'])->name('cart.destroy')->middleware('auth');
+Route::post('/cart',[OrderItemController::class,'store'])->name('cart.store')->middleware('auth');
+Route::get('/cart',[OrderItemController::class,'index'])->name('cart.index')->middleware('auth');
+
+// Product Checkout
+Route::get('checkout',[App\Http\Controllers\CheckoutController::class,'index'])->name('cart.checkout')->middleware('auth');
+Route::post('checkout',[App\Http\Controllers\CheckoutController::class,'store'])->name('checkout.store')->middleware('auth');
+
 
 
 //Login 
@@ -44,6 +59,7 @@ Route::get('/logout',[LoginController::class,'logout']);
 Route::get('/register',[RegisterController::class,'create']);
 Route::post('/register',[RegisterController::class,'store'])->name('register');
 
+// For Admin 
 Route::middleware(['auth'])->group(function () {
     // For Admin 
     Route::resource('admin/products',App\Http\Controllers\Admin\ProductController::class)->except(
@@ -52,5 +68,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('admin/categories',App\Http\Controllers\Admin\CategoryController::class)->except(
         'show');
 
+    Route::resource('/admin/order', App\Http\Controllers\OrderController::class);
+
     Route::get('/dashboard',[App\Http\Controllers\Admin\ProductController::class,'dashboard']);
+
+    Route::resource('/admin/report', App\Http\Controllers\Admin\ReportController::class);
 });
+

@@ -17,9 +17,11 @@
             <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i> Pages</a>
             <nav class="az-menu-sub">
               <a href="/admin/products" class="nav-link">View Products</a>
-              <a href="/admin/products/create" class="nav-link">Create</a>
+              <a href="/admin/products/create" class="nav-link">Create Product</a>
               <a href="/admin/categories" class="nav-link">View Categories</a>
               <a href="/admin/categories/create" class="nav-link">Create Category</a>
+              <a href="/admin/order" class="nav-link">View Orders</a>
+
 
             </nav>
           </li>
@@ -111,7 +113,7 @@
             <a href="" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>
             <a href="" class="dropdown-item"><i class="typcn typcn-time"></i> Activity Logs</a>
             <a href="" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
-            <a href="page-signin.html" class="dropdown-item"><i class="typcn typcn-power-outline"></i> Sign Out</a>
+            <a href="/logout" class="dropdown-item"><i class="typcn typcn-power-outline"></i> Sign Out</a>
           </div><!-- dropdown-menu -->
         </div>
       </div><!-- az-header-right -->
