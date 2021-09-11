@@ -47,6 +47,7 @@ class OrderItemController extends Controller
         $cart_id = session()->get('cartid');
         $product_exist= Cart::where('cart_num',$cart_id)->Where('product_id',$id)->first();
         if(!$cart_id) {
+            Cart::truncate();
             $cart_id= uniqid();
             session()->put('cartid', $cart_id);
         }
@@ -117,8 +118,6 @@ class OrderItemController extends Controller
      */
     public function destroy($id)
     {
-        // $cart_id = session()->get('cartid');
-
         $CartItem = Cart::find($id);
         $CartItem->delete();
         return redirect()->back()->with('success','The item was deleted successfully.');
