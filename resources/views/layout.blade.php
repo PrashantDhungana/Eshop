@@ -150,7 +150,7 @@
 							<div class="sinlge-bar">
 								<a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 							</div>
-							@include('includes.orderItemsNav')		
+							{{-- @include('includes.orderItemsNav')		 --}}
 						</div>
 					</div>
 				</div>
