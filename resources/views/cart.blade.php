@@ -38,7 +38,7 @@
                                                     <i class="ti-minus"></i>
                                                 </button>
                                             </div>
-                                            <input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="100" value="1">
+                                            <input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="100" value="{{$order->quantity}}">
                                             <div class="button plus">
                                                 <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
                                                     <i class="ti-plus"></i>
@@ -47,7 +47,7 @@
                                         </div>
                                         <!--/ End Input Order -->
                                     </td>
-                                    <td class="total-amount" data-title="Total"><span>Rs.{{$order->total}}</span></td>
+                                    <td class="total-amount" data-title="Total"><span>Rs.{{$order->sub_total}}</span></td>
                                     <td class="action" data-title="Remove">
                                         <form method="post" action="{{ route('cart.destroy',$order->id) }}" >
                                             @csrf 
@@ -82,12 +82,7 @@
 							</div>
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
-									<ul>
-										<li>Cart Subtotal<span>Rs.{{ $order->order->sub_total}}</span></li>
-										<li>Shipping<span>Free</span></li>
-										{{-- <li>You Save<span>$20.00</span></li> --}}
-										<li class="last">You Pay<span>Rs.{{ $order->order->sub_total}}</span></li>
-									</ul>
+									
 									<div class="button5">
 										<a href="/checkout" class="btn">Checkout</a>
 										<a href="{{ route('product.index')}}" class="btn">Continue shopping</a>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrderItem;
-use App\Models\Order;
+use App\Models\Cart;
 use App\Models\Product;
 
 
@@ -21,13 +21,8 @@ class OrderItemController extends Controller
      */
     public function index()
     {
-        $order_id = session('order_id', 0);
-        // $order = Order::find($order_id);
-        // Sir's approach
-        $order_items = OrderItem::whereOrderId($order_id)->get();
-        // $order_items = OrderItem::all();
-        
-        return view('order',compact('order_items'));
+        $order_items = Cart::all();
+        return view('cart',compact('order_items'));
     }
 
     /**
@@ -46,41 +41,41 @@ class OrderItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $order_id = session('order_id', 0);
-        // checking if there is valid order_id in the session
-        if($order_id < 1){  // $order_id >= 1
-            // creating order if there is no order_id in the session
-            $order = new Order();
-            $order->user_id = Auth::id();
-            $order->order_status = 'cart';
-            $order->sub_total = 0;
-            $order->discount = 0;
-            $order->shipping_price = 0;
-            $order->total_price = 0;
-            $order->shipping_address = ' ';
-            $order->save();
-            session(['order_id'=> $order->id]);
-            $order_id = $order->id;
-        }
-        // adding items to cart -> creating order_item
-        $order_item = new OrderItem();
-        $order_item->order_id = $order_id;
-        $order_item->product_id = $request->input('product_id');
-        $product = Product::find($order_item->product_id);
-        $order_item->product_price = $product->new_price;
-        $order_item->quantity = 1;
-        $order_item->total = $order_item->quantity * $order_item->product_price;
-        $order_item->save();
-        // updating order table with total price
-        $order = Order::find($order_id);
-        $order->sub_total += $order_item->total;
-        
-        if($order->save())
-            return redirect(route('cart.index'));
-    }
 
+    public function store(Request $request){
+        $id = $request->product_id;
+        $cart_id = session()->get('cartid');
+        $product_exist= Cart::where('cart_num',$cart_id)->Where('product_id',$id)->first();
+        if(!$cart_id) {
+            Cart::truncate();
+            $cart_id= uniqid();
+            session()->put('cartid', $cart_id);
+        }
+
+         $product = Product::findOrFail($id);
+
+        if($product_exist){
+            $product_exist->quantity = $product_exist->quantity+1;
+            $product_exist->save();
+            $product_exist->sub_total = $product_exist->price * $product_exist->quantity;
+            $product_exist->save();
+        }
+        else{
+            $cart = new Cart;
+            $cart->cart_num = $cart_id;
+            $cart->product_id = $id;
+            $cart->product_name = $product->name ;
+            $cart->price = $product->new_price ;
+            $cart->status = 1 ;
+            $cart->quantity = 1;
+            $cart->sub_total = $product->new_price;
+            $cart->save();
+        }
+
+
+        
+        return redirect('cart');
+    }
     /**
      * Display the specified resource.
      *
@@ -123,11 +118,8 @@ class OrderItemController extends Controller
      */
     public function destroy($id)
     {
-        $order_item = OrderItem::find($id);
-        $order_item->order->sub_total -= $order_item->product->new_price;
-        
-        $order_item->order->save();
-        $order_item->delete();
+        $CartItem = Cart::find($id);
+        $CartItem->delete();
         return redirect()->back()->with('success','The item was deleted successfully.');
     }
 }
