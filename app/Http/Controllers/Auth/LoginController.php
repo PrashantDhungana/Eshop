@@ -33,19 +33,7 @@ class LoginController extends Controller
     }
 
     public function logout(Request $request)
-    {
-        // if(session('order_id'))
-        // $orderItem =Order::find(session('order_id'))->delete();
-        // dd($orderItem);
-        // if(OrderItem::truncate())
-        //     Order::truncate();
-        // dd($result);
-        if(session('order_id')){
-            $order = Order::find(session('order_id'));
-            $order->orderItems()->delete();
-            $order->delete();
-        }
-        
+    {   
         Auth::logout();
         $request->session()->invalidate();
     
