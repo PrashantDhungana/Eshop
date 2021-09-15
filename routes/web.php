@@ -6,6 +6,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\OrderItemController;
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,3 +78,35 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/admin/report', App\Http\Controllers\Admin\ReportController::class);
 });
 
+// Sending a Mail
+// Route::get('send-mail', function () {
+//     \Illuminate\Support\Facades\Mail::to('sharma.prashant2000@gmail.com')->send(new App\Mail\KarishmaMail);
+// });
+
+Route::get('test-mail', function () {
+    // \Illuminate\Support\Facades\Mail::to('sharma.prashant2000@gmail.com')->send(new App\Mail\KarishmaMail);
+    // return new App\Mail\Mark();
+
+});
+
+Route::get('mark', function () {
+
+    $users = [
+      [
+            "id" => 1, 
+            "name" => "Prashant Sharma Dhungana", 
+            "email" => "sharma.prashant2000@gmail.com", 
+            "email_verified_at" => null, 
+            "created_at" => "2021-06-11T09:23:46.000000Z", 
+            "updated_at" => "2021-06-11T09:23:46.000000Z", 
+            "role" => 1, 
+            "purchase" => 1 
+         ], 
+   ]; 
+    
+    foreach($users as $user)
+    {
+            \Illuminate\Support\Facades\Mail::to($user["email"])->send(new App\Mail\Mark($user["name"]));
+
+    }
+});
