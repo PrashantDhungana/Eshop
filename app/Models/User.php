@@ -6,8 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
-class User extends Authenticatable implements MustVerifyEmail
+use App\Models\VerifyMail;
+class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -43,5 +43,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function is_admin(){
         return $this->role == 2;
+    }
+
+    public function VerifyMail(){
+        return $this->hasOne(VerifyMail::class);
     }
 }
