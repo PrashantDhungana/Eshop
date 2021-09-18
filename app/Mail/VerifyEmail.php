@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Mark extends Mailable
+class VerifyEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,10 +16,12 @@ class Mark extends Mailable
      *
      * @return void
      */
-    private $user;
-    public function __construct($user)
+    public $username,$token;
+    public function __construct($username,$token)
     {
-        $this->user = $user;
+        $this->username = $username;
+        $this->token = $token;
+
     }
 
     /**
@@ -29,7 +31,6 @@ class Mark extends Mailable
      */
     public function build()
     {
-        
-        return $this->markdown('markdown',['user' => $this->user]);
+        return $this->view('auth.verify-email');
     }
 }

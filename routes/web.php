@@ -8,6 +8,7 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\OrderItemController;
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,30 +84,6 @@ Route::middleware(['auth'])->group(function () {
 //     \Illuminate\Support\Facades\Mail::to('sharma.prashant2000@gmail.com')->send(new App\Mail\KarishmaMail);
 // });
 
-Route::get('test-mail', function () {
-    // \Illuminate\Support\Facades\Mail::to('sharma.prashant2000@gmail.com')->send(new App\Mail\KarishmaMail);
-    // return new App\Mail\Mark();
-
-});
-
-Route::get('mark', function () {
-
-    $users = [
-      [
-            "id" => 1, 
-            "name" => "Prashant Sharma Dhungana", 
-            "email" => "sharma.prashant2000@gmail.com", 
-            "email_verified_at" => null, 
-            "created_at" => "2021-06-11T09:23:46.000000Z", 
-            "updated_at" => "2021-06-11T09:23:46.000000Z", 
-            "role" => 1, 
-            "purchase" => 1 
-         ], 
-   ]; 
-    
-    foreach($users as $user)
-    {
-            \Illuminate\Support\Facades\Mail::to($user["email"])->send(new App\Mail\Mark($user["name"]));
-
-    }
-});
+// Email Verification
+Route::get('verify/{token}',[App\Http\Controllers\Auth\RegisterController::class,'VerifyToken']);
+Route::get('resend/{id}',[App\Http\Controllers\Auth\RegisterController::class,'resendMail'])->name('resend.mail');
