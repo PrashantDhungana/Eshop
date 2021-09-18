@@ -87,3 +87,11 @@ Route::middleware(['auth'])->group(function () {
 // Email Verification
 Route::get('verify/{token}',[App\Http\Controllers\Auth\RegisterController::class,'VerifyToken']);
 Route::get('resend/{id}',[App\Http\Controllers\Auth\RegisterController::class,'resendMail'])->name('resend.mail');
+
+//Password Reset
+Route::get('/forget_pass' ,[App\Http\Controllers\Auth\LoginController::class, 'forgetpass'])->name('forget');
+Route::post('/forget_pass' ,[App\Http\Controllers\Auth\LoginController::class, 'password_r'])->name('forget_r');
+Route::get('verifypass/{token}',[App\Http\Controllers\Auth\LoginController::class,'VerifyPassToken']);
+
+Route::post('verifypass/{token}', [App\Http\Controllers\Auth\LoginController::class,'Update']);
+

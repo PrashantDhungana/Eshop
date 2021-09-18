@@ -1,0 +1,1 @@
+<p>Dear {{$name}} Plz reset your password after clicking then link<a href="http://127.0.0.1:8000/verifypass/{{$token}}">CLICK HERE TO VERIFY</a></p>

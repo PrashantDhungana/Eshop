@@ -48,4 +48,7 @@ class User extends Authenticatable
     public function VerifyMail(){
         return $this->hasOne(VerifyMail::class);
     }
+    public function VerifyPass(){
+        return $this->hasOne(VerifyPass::class);
+    }
 }
