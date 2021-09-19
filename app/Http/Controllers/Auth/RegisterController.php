@@ -49,6 +49,7 @@ class RegisterController extends Controller
             if(!$user->email_verified_at)
             {
                 $user->email_verified_at = Carbon::now();
+
                 $user->save();
             }
             // Auth::login($user);

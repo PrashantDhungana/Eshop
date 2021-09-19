@@ -87,3 +87,7 @@ Route::middleware(['auth'])->group(function () {
 // Email Verification
 Route::get('verify/{token}',[App\Http\Controllers\Auth\RegisterController::class,'VerifyToken']);
 Route::get('resend/{id}',[App\Http\Controllers\Auth\RegisterController::class,'resendMail'])->name('resend.mail');
+
+//Social Login
+Route::get('login/github',[App\Http\Controllers\Auth\LoginController::class,'SocialRedirect']);
+Route::get('login/github/redirect',[App\Http\Controllers\Auth\LoginController::class,'SocialCallback']);
