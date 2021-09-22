@@ -91,3 +91,7 @@ Route::get('resend/{id}',[App\Http\Controllers\Auth\RegisterController::class,'r
 //Social Login
 Route::get('login/github',[App\Http\Controllers\Auth\LoginController::class,'SocialRedirect']);
 Route::get('login/github/redirect',[App\Http\Controllers\Auth\LoginController::class,'SocialCallback']);
+
+//OTP route
+Route::get('sms',[App\Http\Controllers\SmsController::class,'sendMessage']);
+
