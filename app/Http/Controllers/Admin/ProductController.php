@@ -61,6 +61,7 @@ class ProductController extends Controller
             'product_name' => 'required',
             'description' => 'required|max:255',
             'price' => 'required|integer',
+            'tags' => 'max:1000',
             'cat_name' => 'required|integer|min:1',
             'product_img' => 'image',
         ]);   
@@ -84,6 +85,7 @@ class ProductController extends Controller
         $product->details  = $request->description;
         $product->new_price = $request->price;
         $product->slug = Str::slug($request->product_name, '-');
+        $product->tags = $request->tags;
         $product->category_id = $request->cat_name;
         $product->image = $fullname;
         $product->user_id = Auth::id();

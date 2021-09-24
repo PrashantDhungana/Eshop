@@ -14,6 +14,7 @@
       @endif
   <div class="project" style="border: 1px solid black;">
     <hr>
+    {{ Breadcrumbs::render('blog',$product) }}
         
   <div class="container" style="padding-top: 20px;">
 
@@ -49,9 +50,9 @@
                 <form action="/rating/{{$rating->id}}/edit" method="POST">
                   @csrf 
                   <input type="hidden" name="slug" value={{$product->slug}}>
-                  <b><input type="text" name="comment" value="{{ $rating->comment }}" 
-                    @if (Auth::user()->id == $rating->user->id) id="comment" @endif readonly></b>
-                  @if (Auth::user()->id == $rating->user->id)
+                  <b><input type="text" name="comment" value="{{ $rating->comment }}"
+                    @if ((Auth::user()!==null) && Auth::user()->id == $rating->user->id) id="comment" @endif readonly></b>
+                  @if ((Auth::user()!==null) && Auth::user()->id == $rating->user->id)
                     <button type="submit" class="btn btn-primary" onclick="edit(event);">Edit</button>
                     <button type="submit" class="btn btn-success">Save Changes</button>
 

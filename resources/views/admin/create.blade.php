@@ -12,6 +12,10 @@
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" placeholder="Enter product description">{{old('description')}}</textarea>
   </div>
   <div class="form-group">
+    <label for="exampleInputEmail1">Tags(Use commas to separate Tags)</label>
+    <input type="text" class="form-control" placeholder="Enter tags" name="tags" value="{{old('tags')}}">
+  </div>
+  <div class="form-group">
     <label for="exampleInputEmail1">Price</label>
     <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter price" name="price" value="{{old('price')}}">
   </div>
